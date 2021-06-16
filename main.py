@@ -1,18 +1,23 @@
+# Import the required libraries
 from gitterpy.client import GitterClient
 import json
 import os
 from dotenv import load_dotenv
 
+# Take config variables from the .env file of the project
 load_dotenv()
-
 ROOM_ID = os.getenv('ROOM_ID')
 TOKEN = os.getenv('TOKEN')
 room = os.getenv('room')
 CHATBOT_NAME = os.getenv('CHATBOT_NAME')
 
-gitter = GitterClient(TOKEN)
+# Store some information about the community
+about_community = os.getenv('ABOUT_COMMUNITY')
+community_website_link = os.getenv('COMMUNITY_WEBSITE')
+community_github_link = os.getenv('COMMUNITY_GITHUB')
 
 
+# Create some demonstration information
 class Project:
     def __init__(self, programming_lang, name, github_repo, gitter):
         self.programming_lang = programming_lang
@@ -23,13 +28,11 @@ class Project:
 
 p1 = Project(["javascript", "python", "flask"], "ChatBot",
              "https://www.github.com", "https://www.gitter.com")
+
 demonstartion_data = {p1}
 
-about_community = "The SCoRe Lab has conducted research covering various aspects of sensor networks, embeded systems, digital forensic, information security, mobile applications, cloud, blockchain and software tools. The goal of our research is to generate computing solutions through identifying low cost methodologies and strategies that lead to sustainability."
-community_website_link = "https://scorelab.org/"
-community_github_link = "https://github.com/scorelab"
 
-
+# Function to process the message and extract the required information given by the user
 def processMessageL1(query, username):
     count = 0
     user_skills = []
@@ -64,6 +67,9 @@ def processMessageL1(query, username):
             username)
     return "**chatbot** I am learning this"
 
+
+# Communicate with the Gitter channel (send and listen messages)
+gitter = GitterClient(TOKEN)
 
 response = gitter.stream.chat_messages(room)
 for stream_messages in response.iter_lines():

@@ -4,3 +4,4 @@ __pycache__/
 *.py
 !main.py
 .env
+*.txt
