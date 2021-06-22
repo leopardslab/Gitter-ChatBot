@@ -32,25 +32,58 @@ p1 = Project(["javascript", "python", "flask"], "ChatBot",
 demonstartion_data = {p1}
 
 
+# Create a bot's answer when no skill is given by the user
+def default_suggestion_answer(username):
+    ans = "**chatbot** Hey @{}, really nice to have you here. I would be more than happy to help you throughout your contribution journey.\n".format(
+        username)
+    ans += "Can you tell me more about your skills and interests, so that I could suggest you some beginner level issues based on projects that uses your programming languages and fall in your interest.\n"
+    ans += "You can do this by typing `@chatbot <programming language(s) here without chevrons>`\n"
+    ans += "To learn more about me type `@chatbot -help`.\n Keep contributing ask for help wherever you need."
+    return ans
+
+
+def project_suggestion_answer(username, skills, interests):
+    ans = "**chatbot** Hey @{}, really nice to have you here. I would be more than happy to help you throughout your contribution journey.\n".format(
+        username)
+    ans += ".\n"
+    ans += "I have listed few projects with their necessary details that might help you to make your first contribution.\n"
+    ans += "- Project Issues Github Gitter\n"
+    ans += "To learn more about me type `@chatbot -help`.\n Keep contributing ask for help wherever you need."
+    return ans
+
+
 # Function to process the message and extract the required information given by the user
 def processMessageL1(query, username):
     count = 0
     user_skills = []
     introduction = {
         'study', 'undergraduate', 'fresher', 'year', 'university', 'new',
-        'contributer', 'sophomore', 'open-source.', 'open source',
-        'open-source', 'want to contribute', 'how to start', 'start', 'advice',
-        'guide', 'scorelab', 'score-lab', 'projects on', 'projects based on',
-        'how should i start', 'how to begin', 'how can i start',
-        'how should i start', 'how should i proceed'
+        'how can i contribute', 'opensource', 'like to contribute',
+        'wish to contribute', 'contribute', 'contribute to scorelab',
+        'can i contribute', 'scorelab', 'start contributing', 'college',
+        'student', 'contributor', 'sophomore', 'open-source.', 'open source',
+        'mentornship', 'get started', 'help', 'helpful', 'open-source',
+        'want to contribute', 'how to start', 'start', 'advice', 'guide',
+        'college', 'scorelab', 'score-lab', 'projects on', 'projects based on',
+        'how should i start', 'how to begin', 'contibute', 'how can i start',
+        'how should i start', 'how should i proceed', 'beginner',
+        'how should i contribute', 'how can i get started'
     }
 
     skills = {
         'css', 'html', 'javascript', 'python', 'react', 'django', 'flask',
-        'mongodb', 'sql', 'mysql', 'shell'
+        'mongodb', 'sql', 'mysql', 'shell', 'mern', 'vue', 'node', 'express',
+        'android', 'mobile', 'blockchain', 'web', 'c++', 'cpp', 'sql', 'mysql',
+        'git', 'aws', 'machine learning', 'ml', 'computer vision'
+    }
+
+    interests = {
+        'machine learning', 'ml', 'computer vision', 'deep learning', 'dl',
+        'web development', 'web', 'android development', 'android'
     }
 
     for x in introduction:
+        if count > 2: break
         if x in query:
             count += 1
 
@@ -61,11 +94,12 @@ def processMessageL1(query, username):
         if len(user_skills) != 0:
             for y in demonstartion_data:
                 if user_skills[0] in y.programming_lang:
+                    return project_suggestion_answer(username, user_skills)
                     return '**chatbot**- Welcome @{} to scorelab community!\nI have found some projects which might interest you.\n- {} [Github]({}) [Gitter]({})'.format(
                         username, y.name, y.github_repo, y.gitter)
         return '**chatbot**- Welcome @{} to scorelab!\nI am ChatBot and I am here to answer your queries. \n**type `@bot -help` to learn more about me.**'.format(
             username)
-    return "**chatbot** I am learning this"
+    return default_suggestion_answer(username)
 
 
 # Communicate with the Gitter channel (send and listen messages)
