@@ -3,6 +3,7 @@ from gitterpy.client import GitterClient
 import json
 import os
 from dotenv import load_dotenv
+import pymongo
 
 # Take config variables from the .env file of the project
 load_dotenv()
@@ -10,26 +11,35 @@ ROOM_ID = os.getenv('ROOM_ID')
 TOKEN = os.getenv('TOKEN')
 room = os.getenv('room')
 CHATBOT_NAME = os.getenv('CHATBOT_NAME')
+DB_NAME = os.getenv('DB_NAME')
+COLLECTION_NAME = os.getenv('COLLECTION_NAME')
+CONNECTION_STRING = os.getenv('CONNECTION_STRING')
 
 # Store some information about the community
 about_community = os.getenv('ABOUT_COMMUNITY')
 community_website_link = os.getenv('COMMUNITY_WEBSITE')
 community_github_link = os.getenv('COMMUNITY_GITHUB')
 
+# Database
+# Provide the mongodb atlas url to connect python to mongodb using pymongo
+client = pymongo.MongoClient(CONNECTION_STRING)
+db = client[DB_NAME]
+collection = db[COLLECTION_NAME]
 
-# Create some demonstration information
-class Project:
-    def __init__(self, programming_lang, name, github_repo, gitter):
-        self.programming_lang = programming_lang
-        self.name = name
-        self.github_repo = github_repo
-        self.gitter = gitter
+# Store some demonstration information
+project1 = {
+    "programming-languages": ["javascript", "python", "flask"],
+    "name":
+    "ChatBot",
+    "github-link":
+    "https://github.com/leopardslab/Gitter-ChatBot",
+    "gitter-link":
+    "https://gitter.im/LeaopardLabs/Gitter-ChatBot",
+    "good-first-issues":
+    "https://github.com/leopardslab/Gitter-ChatBot/labels/good%20first%20issue"
+}
 
-
-p1 = Project(["javascript", "python", "flask"], "ChatBot",
-             "https://www.github.com", "https://www.gitter.com")
-
-demonstartion_data = {p1}
+collection.insert_one(project1)
 
 
 # Create a bot's answer when no skill is given by the user
@@ -94,7 +104,7 @@ def processMessageL1(query, username):
                 user_skills.append(x)
         for x in interests:
             if x in query:
-                user_interests.append(x)        
+                user_interests.append(x)
         if len(user_skills) + len(user_interests) != 0:
             return project_suggestion_answer(username, user_skills,
                                              user_interests)
