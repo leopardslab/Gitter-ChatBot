@@ -32,25 +32,59 @@ p1 = Project(["javascript", "python", "flask"], "ChatBot",
 demonstartion_data = {p1}
 
 
+# Create a bot's answer when no skill is given by the user
+def default_suggestion_answer(username):
+    ans = "**chatbot** Hey @{}, really nice to have you here. I would be more than happy to help you throughout your contribution journey.\n".format(
+        username)
+    ans += "Can you tell me more about your skills and interests, so that I could suggest you some beginner level issues based on projects that uses your programming languages and fall in your interest.\n"
+    ans += "You can do this by typing `@chatbot <programming language(s) here without chevrons>`\n"
+    ans += "To learn more about me type `@chatbot -help`.\n Keep contributing and ask for help wherever you need."
+    return ans
+
+
+# Create a bot's answer when user gives their skills or interests
+def project_suggestion_answer(username, skills, interests):
+    ans = "**chatbot** Hey @{}, really nice to have you here. I would be more than happy to help you throughout your contribution journey.\n".format(
+        username)
+    ans += "I have listed your skills and interests - {} {}\n".format(
+        skills, interests)
+    return ans
+
+
 # Function to process the message and extract the required information given by the user
 def processMessageL1(query, username):
     count = 0
     user_skills = []
+    user_interests = []
     introduction = {
         'study', 'undergraduate', 'fresher', 'year', 'university', 'new',
-        'contributer', 'sophomore', 'open-source.', 'open source',
-        'open-source', 'want to contribute', 'how to start', 'start', 'advice',
-        'guide', 'scorelab', 'score-lab', 'projects on', 'projects based on',
-        'how should i start', 'how to begin', 'how can i start',
-        'how should i start', 'how should i proceed'
+        'how can i contribute', 'opensource', 'like to contribute',
+        'wish to contribute', 'contribute', 'contribute to scorelab',
+        'can i contribute', 'scorelab', 'start contributing', 'college',
+        'student', 'contributor', 'sophomore', 'open-source.', 'open source',
+        'mentornship', 'get started', 'help', 'helpful', 'open-source',
+        'want to contribute', 'how to start', 'start', 'advice', 'guide',
+        'college', 'scorelab', 'score-lab', 'projects on', 'projects based on',
+        'how should i start', 'how to begin', 'contibute', 'how can i start',
+        'how should i start', 'how should i proceed', 'beginner',
+        'how should i contribute', 'how can i get started'
     }
 
     skills = {
         'css', 'html', 'javascript', 'python', 'react', 'django', 'flask',
-        'mongodb', 'sql', 'mysql', 'shell'
+        'mongodb', 'sql', 'mysql', 'shell', 'mern', 'vue', 'node', 'express',
+        'android', 'mobile', 'blockchain', 'web', 'c++', 'cpp', 'sql', 'mysql',
+        'git', 'aws', 'golang', 'go'
+    }
+
+    interests = {
+        'machine learning', 'ml', 'computer vision', 'deep learning', 'dl',
+        'web development', 'web', 'android development', 'android', 'mobile',
+        'computer vision'
     }
 
     for x in introduction:
+        if count > 2: break
         if x in query:
             count += 1
 
@@ -58,14 +92,14 @@ def processMessageL1(query, username):
         for x in skills:
             if x in query:
                 user_skills.append(x)
-        if len(user_skills) != 0:
-            for y in demonstartion_data:
-                if user_skills[0] in y.programming_lang:
-                    return '**chatbot**- Welcome @{} to scorelab community!\nI have found some projects which might interest you.\n- {} [Github]({}) [Gitter]({})'.format(
-                        username, y.name, y.github_repo, y.gitter)
-        return '**chatbot**- Welcome @{} to scorelab!\nI am ChatBot and I am here to answer your queries. \n**type `@bot -help` to learn more about me.**'.format(
-            username)
-    return "**chatbot** I am learning this"
+        for x in interests:
+            if x in query:
+                user_interests.append(x)        
+        if len(user_skills) + len(user_interests) != 0:
+            return project_suggestion_answer(username, user_skills,
+                                             user_interests)
+        return default_suggestion_answer(username)
+    return -1
 
 
 # Communicate with the Gitter channel (send and listen messages)
@@ -82,4 +116,5 @@ for stream_messages in response.iter_lines():
             gitter.messages.send(room, botanswer)
         elif not message.startswith('**chatbot**'):
             botanswer = processMessageL1(message.lower(), message_sender)
-            gitter.messages.send(room, botanswer)
+            if botanswer != -1:
+                gitter.messages.send(room, botanswer)
