@@ -27,19 +27,27 @@ db = client[DB_NAME]
 collection = db[COLLECTION_NAME]
 
 # Store some demonstration information
-project1 = {
-    "programming-languages": ["javascript", "python", "flask"],
-    "name":
-    "ChatBot",
-    "github-link":
-    "https://github.com/leopardslab/Gitter-ChatBot",
-    "gitter-link":
-    "https://gitter.im/LeaopardLabs/Gitter-ChatBot",
-    "good-first-issues":
-    "https://github.com/leopardslab/Gitter-ChatBot/labels/good%20first%20issue"
-}
+# project1 = {
+#     "tags": ["python", "shell", "machine learning", "ml"],
+#     "name":
+#     "Gitter-ChatBot",
+#     "github-link":
+#     "https://github.com/leopardslab/Gitter-ChatBot",
+#     "gitter-link":
+#     "https://gitter.im/LeaopardLabs/Gitter-ChatBot",
+#     "good-first-issues":
+#     "https://github.com/leopardslab/Gitter-ChatBot/labels/good%20first%20issue"
+# }
 
-collection.insert_one(project1)
+# collection.insert_one(project1)
+
+# Query the database for projects and interests, to find some projects
+# def find_projects(queries):
+#     for q in queries:
+#         projects = collection.find({"tags": query})
+#     return project
+# for x in all_projects:
+# print(x)
 
 
 # Create a bot's answer when no skill is given by the user
@@ -53,19 +61,34 @@ def default_suggestion_answer(username):
 
 
 # Create a bot's answer when user gives their skills or interests
-def project_suggestion_answer(username, skills, interests):
+def project_suggestion_answer(username, queries):
+    projects = []
     ans = "**chatbot** Hey @{}, really nice to have you here. I would be more than happy to help you throughout your contribution journey.\n".format(
         username)
-    ans += "I have listed your skills and interests - {} {}\n".format(
-        skills, interests)
+    ans += "I have listed your skills and interests - {}\n".format(queries)
+
+    for q in queries:
+        res = collection.find({"tags": q}, {"_id": 0, "tags": 0})
+        for project in res:
+            if project not in projects:
+                projects.append(project)
+
+    if len(projects) == 0:
+        ans += "Sorry " + username + ", I didn't find any projects matching your skills and interests :("
+    else:
+        ans += "I have found few projects for you :)\n"
+    for p in projects:
+        ans += "- {} [Github repository]({}) [Gitter channel]({}) [good first issues]({})\n".format(
+            p['name'], p['github-link'], p['gitter-link'],
+            p['good-first-issues'])
+
     return ans
 
 
 # Function to process the message and extract the required information given by the user
-def processMessageL1(query, username):
+def processMessageL1(message, username):
     count = 0
-    user_skills = []
-    user_interests = []
+    queries = []
     introduction = {
         'study', 'undergraduate', 'fresher', 'year', 'university', 'new',
         'how can i contribute', 'opensource', 'like to contribute',
@@ -93,21 +116,23 @@ def processMessageL1(query, username):
         'computer vision'
     }
 
+    if (message.startswith('@bot -p')):
+        count = 3
+
     for x in introduction:
         if count > 2: break
-        if x in query:
+        if x in message:
             count += 1
 
     if count > 2:
         for x in skills:
-            if x in query:
-                user_skills.append(x)
+            if x in message:
+                queries.append(x)
         for x in interests:
-            if x in query:
-                user_interests.append(x)
-        if len(user_skills) + len(user_interests) != 0:
-            return project_suggestion_answer(username, user_skills,
-                                             user_interests)
+            if x in message:
+                queries.append(x)
+        if len(queries) != 0:
+            return project_suggestion_answer(username, queries)
         return default_suggestion_answer(username)
     return -1
 
