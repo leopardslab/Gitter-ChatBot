@@ -41,14 +41,13 @@ collection = db[COLLECTION_NAME]
 
 # collection.insert_one(project1)
 
-
 # Query the database for projects and interests, to find some projects
 # def find_projects(queries):
 #     for q in queries:
 #         projects = collection.find({"tags": query})
 #     return project
-    # for x in all_projects:
-    # print(x)
+# for x in all_projects:
+# print(x)
 
 
 # Create a bot's answer when no skill is given by the user
@@ -76,10 +75,12 @@ def project_suggestion_answer(username, queries):
 
     if len(projects) == 0:
         ans += "Sorry " + username + ", I didn't find any projects matching your skills and interests :("
-    else:    
+    else:
         ans += "I have found few projects for you :)\n"
     for p in projects:
-        ans += "- {} [Github repository]({}) [Gitter channel]({}) [good first issues]({})\n".format(p['name'], p['github-link'], p['gitter-link'], p['good-first-issues'])
+        ans += "- {} [Github repository]({}) [Gitter channel]({}) [good first issues]({})\n".format(
+            p['name'], p['github-link'], p['gitter-link'],
+            p['good-first-issues'])
 
     return ans
 
@@ -114,6 +115,9 @@ def processMessageL1(message, username):
         'web development', 'web', 'android development', 'android', 'mobile',
         'computer vision'
     }
+
+    if (message.startswith('@bot -p')):
+        count = 3
 
     for x in introduction:
         if count > 2: break
