@@ -72,14 +72,13 @@ def processMessageL1(query, username):
 
     skills = {
         'css', 'html', 'javascript', 'python', 'react', 'django', 'flask',
-        'mongodb', 'sql', 'mysql', 'shell', 'mern', 'vue', 'node', 'express',
-        'android', 'mobile', 'blockchain', 'web', 'c++', 'cpp', 'sql', 'mysql',
-        'git', 'aws', 'golang', 'go'
+        'mongodb', 'sql', 'mysql', 'vue.js', 'node.js', 'express.js',
+        'blockchain', 'web', 'c++', 'cpp', 'sql', 'mysql', 'golang'
     }
 
     interests = {
-        'machine learning', 'ml', 'computer vision', 'deep learning', 'dl',
-        'web development', 'web', 'android development', 'android', 'mobile',
+        'machine learning', 'computer vision', 'deep learning',
+        'web development', 'android development', 'android', 'mobile',
         'computer vision'
     }
 
@@ -94,7 +93,7 @@ def processMessageL1(query, username):
                 user_skills.append(x)
         for x in interests:
             if x in query:
-                user_interests.append(x)        
+                user_interests.append(x)
         if len(user_skills) + len(user_interests) != 0:
             return project_suggestion_answer(username, user_skills,
                                              user_interests)
