@@ -1,8 +1,8 @@
-# Import all the responses to call them based on the extracted information 
-import responses
+# Import all the responses to call them based on the extracted information
+from . import responses
 
 # Function to process the message and extract the required information given by the user
-def processMessageL1(message, username):
+def process_message(message, username):
     count = 0
     queries = []
     introduction = {
@@ -31,21 +31,22 @@ def processMessageL1(message, username):
         'computer vision'
     }
 
-    if (message.startswith('@bot -p')):
+    if message.startswith('@bot -p'):
         count = 3
 
-    for x in introduction:
-        if count > 2: break
-        if x in message:
+    for _x_ in introduction:
+        if count > 2:
+            break
+        if _x_ in message:
             count += 1
 
     if count > 2:
-        for x in skills:
-            if x in message:
-                queries.append(x)
-        for x in interests:
-            if x in message:
-                queries.append(x)
+        for _x_ in skills:
+            if _x_ in message:
+                queries.append(_x_)
+        for _x_ in interests:
+            if _x_ in message:
+                queries.append(_x_)
         if len(queries) != 0:
             return responses.project_suggestion_answer(username, queries)
         return responses.default_suggestion_answer(username)
