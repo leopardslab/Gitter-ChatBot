@@ -23,6 +23,6 @@ for stream_messages in response.iter_lines():
             BOTANSWER = "**chatbot** I am currently learning this feature try after some time!"
             gitter.messages.send(room, BOTANSWER)
         elif not message.startswith('**chatbot**'):
-            BOTANSWER = data_extraction.processMessageL1(message.lower(), message_sender)
+            BOTANSWER = data_extraction.process_message(message.lower(), message_sender)
             if BOTANSWER != -1:
                 gitter.messages.send(room, BOTANSWER)
