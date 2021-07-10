@@ -2,7 +2,7 @@
 from gitterpy.client import GitterClient
 import json
 import os
-from data_extraction import *
+import data_extraction
 
 # Take config variables from the .env file of the project
 ROOM_ID = os.getenv('ROOM_ID')
@@ -23,6 +23,6 @@ for stream_messages in response.iter_lines():
             botanswer = "**chatbot** I am currently learning this feature try after some time!"
             gitter.messages.send(room, botanswer)
         elif not message.startswith('**chatbot**'):
-            botanswer = processMessageL1(message.lower(), message_sender)
+            botanswer = data_extraction.processMessageL1(message.lower(), message_sender)
             if botanswer != -1:
                 gitter.messages.send(room, botanswer)

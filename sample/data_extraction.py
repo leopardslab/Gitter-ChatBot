@@ -1,5 +1,5 @@
 # Import all the responses to call them based on the extracted information 
-from responses import  *
+import responses
 
 # Function to process the message and extract the required information given by the user
 def processMessageL1(message, username):
@@ -47,6 +47,6 @@ def processMessageL1(message, username):
             if x in message:
                 queries.append(x)
         if len(queries) != 0:
-            return project_suggestion_answer(username, queries)
-        return default_suggestion_answer(username)
+            return responses.project_suggestion_answer(username, queries)
+        return responses.default_suggestion_answer(username)
     return -1

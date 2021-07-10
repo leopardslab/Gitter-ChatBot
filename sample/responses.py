@@ -1,5 +1,6 @@
 # Import database configurations and helper functions
-from database import *
+import database
+import os
 
 # Store some information about the community
 about_community = os.getenv('ABOUT_COMMUNITY')
@@ -25,7 +26,7 @@ def project_suggestion_answer(username, queries):
     ans += "I have listed your skills and interests - {}\n".format(queries)
 
     for q in queries:
-        res = collection.find({"tags": q}, {"_id": 0, "tags": 0})
+        res = database.collection.find({"tags": q}, {"_id": 0, "tags": 0})
         for project in res:
             if project not in projects:
                 projects.append(project)
