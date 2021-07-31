@@ -1,8 +1,12 @@
 # Import database configurations and helper functions
 import os
-from . import database
+from dotenv import load_dotenv
+import database
+print(__name__)
+
 
 # Store some information about the community
+load_dotenv()
 about_community = os.getenv('ABOUT_COMMUNITY')
 community_website_link = os.getenv('COMMUNITY_WEBSITE')
 community_github_link = os.getenv('COMMUNITY_GITHUB')

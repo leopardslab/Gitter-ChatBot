@@ -1,35 +1,20 @@
-# Import all the responses to call them based on the extracted information
-from . import responses
+import json
+
+# load json file
+# import 'data.json'
+
+f = open('json/message-keywords.json')
+data = json.load(f)
 
 # Function to process the message and extract the required information given by the user
-def process_message(message, username):
+def process_message(message):
     count = 0
     queries = []
-    introduction = {
-        'study', 'undergraduate', 'fresher', 'year', 'university', 'new',
-        'how can i contribute', 'opensource', 'like to contribute',
-        'wish to contribute', 'contribute', 'contribute to scorelab',
-        'can i contribute', 'scorelab', 'start contributing', 'college',
-        'student', 'contributor', 'sophomore', 'open-source.', 'open source',
-        'mentornship', 'get started', 'help', 'helpful', 'open-source',
-        'want to contribute', 'how to start', 'start', 'advice', 'guide',
-        'college', 'scorelab', 'score-lab', 'projects on', 'projects based on',
-        'how should i start', 'how to begin', 'contibute', 'how can i start',
-        'how should i start', 'how should i proceed', 'beginner',
-        'how should i contribute', 'how can i get started'
-    }
+    introduction = data['introduction']
 
-    skills = {
-        'css', 'html', 'javascript', 'python', 'react', 'django', 'flask',
-        'mongodb', 'sql', 'mysql', 'vue.js', 'node.js', 'express.js',
-        'blockchain', 'web', 'c++', 'cpp', 'sql', 'mysql', 'golang'
-    }
+    skills = data['skills']
 
-    interests = {
-        'machine learning', 'computer vision', 'deep learning',
-        'web development', 'android development', 'android', 'mobile',
-        'computer vision'
-    }
+    interests = data['interests']
 
     if message.startswith('@bot -p'):
         count = 3
@@ -48,6 +33,9 @@ def process_message(message, username):
             if _x_ in message:
                 queries.append(_x_)
         if len(queries) != 0:
-            return responses.project_suggestion_answer(username, queries)
-        return responses.default_suggestion_answer(username)
-    return -1
+            return queries
+            # It returns an array containing all the skills and interests of the user
+        return [0]
+        # 0 says that the user is a new contributor but has not given any skills or interests
+    return [-1]
+    # -1 says that the user is not a new contributor and hence do nothing
