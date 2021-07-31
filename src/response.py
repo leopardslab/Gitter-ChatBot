@@ -1,18 +1,14 @@
-# Import database configurations and helper functions
 import os
 from dotenv import load_dotenv
 import database
-print(__name__)
 
-
-# Store some information about the community
+# Load required information about the community
 load_dotenv()
 about_community = os.getenv('ABOUT_COMMUNITY')
 community_website_link = os.getenv('COMMUNITY_WEBSITE')
 community_github_link = os.getenv('COMMUNITY_GITHUB')
 
-
-# Create a bot's answer when no skill is given by the user
+#ChatBot's response when neither skills nor interests are given by the user
 def default_suggestion_answer(username):
     ans = "**chatbot** Hey @{}, really nice to have you here.\n".format(
         username)
@@ -25,7 +21,7 @@ def default_suggestion_answer(username):
     return ans
 
 
-# Create a bot's answer when user gives their skills or interests
+#ChatBot's response when user provides atleast one of skills or interests
 def project_suggestion_answer(username, queries):
     projects = []
     ans = "**chatbot** Hey @{}, really nice to have you here.\n".format(
