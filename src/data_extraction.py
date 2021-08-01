@@ -3,11 +3,12 @@ import json
 # load json file
 # import 'data.json'
 
-f = open('json/message-keywords.json')
+f = open('json_data/search-keywords.json')
 data = json.load(f)
 
 # Function to process the message and extract the required information given by the user
 def process_message(message):
+    # print(message)
     count = 0
     queries = []
     introduction = data['introduction']
