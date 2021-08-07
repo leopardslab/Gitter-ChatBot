@@ -2,6 +2,7 @@
 import os
 import pymongo
 from dotenv import load_dotenv
+print(__name__)
 
 # Take config variables from the .env file of the project
 load_dotenv()
