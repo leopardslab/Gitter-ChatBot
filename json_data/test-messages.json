@@ -1,0 +1,36 @@
+{
+  "messages": [
+    "Hello everyone my name is user. I want to contribute to the Scorelab community. I have a good experience in js and Python. How can I start?",
+    "Hello everyone my name is user. I want to contribute to the Scorelab community. I have a good experience in mysql, react, node.js. How can I start?",
+    "Hello everyone my name is user. I want to contribute to the Scorelab community. I have a good experience in machine learning. How can I start?",
+    "Hello everyone my name is user. I want to contribute to the Scorelab community. How can I start?",
+    "I am not a new cntributor",
+    "Hello, I'm Devansh Agarwal 3rd yearite studying EEE at BITS Pilani. I'm interested in GSoC 2021 in ScoreLab and wish to contribute here in JS based projects, I've expertise in ReactJS, ReactNative and NodeJS.",
+    "Hello, I am Ishita. My field of interest is blockchain and I want to contribute to scorelab in blockchain projects. I am just a beginner in the blockchain. How can I get started?",
+    "i am numaan bashir mir , i want to work on web development project of Scorelab and make the project most effective . how can i get started ?",
+    "Hi, I am Shivam, I am new to open source and looking to learn through contribution. I am comfortable working on C++, Python, SQL, AWS, GIT, Machine Learning. How should I contribute?",
+    "hey, how do we decide which projects are currently active so that I can start contributing as few of them seem pretty inactive , and i am look for projects based on web development",
+    "Hi, guys! I am new to open source! This is my first organization. Can anyone guide or mentor me? I know html, css, java and I am learning javascript",
+    "Hello everyone!! I am interested in blockchain and have done a project on the same. I know Python and C++. How should I go about contributing as I am new to Open Source?",
+    "Hey guys! I am machine learning enthusiast and have primarily worked with image recognition using tensorflow and opencv and LSTM using RNN in Python. I am new to open source and would love to contribute to a scorelab projects and even learn neccessary stuff regarding the project. Can anyone guide me towards a scorelab project in which I could start contributing.",
+    "Hello everyone! I'm a Sophomore College Student from India. I am interested in Image Processing, NLP and React. I would like to contribute the Improvements to scorelab ML projects. I need a bit of your help in guiding me on how to start my open-source contribution for scorelab. Mentors please guide me through the process.",
+    "Hi! I'm a sophomore student from India. I have good knowledge of ReactJS, NodeJS, ExpressJS, and MongoDB (MERN Stack development) along with MaterialUI and Bootstrap. I am interested to start my opensource development journey in your organization. I need some help in finding the right project and guidance from the mentors to learn and improve on my professional development skills."
+  ],
+  "outcomes": [
+    ["python", "js"],
+    ["react", "sql", "mysql", "node.js", "js", "node"],
+    ["machine learning"],
+    [0],
+    [-1],
+    ["react", "js", "node"],
+    ["blockchain"],
+    ["web", "web development"],
+    ["python", "sql", "c++", "git", "aws", "machine learning"],
+    ["web", "web development"],
+    ["css", "html", "java", "javascript"],
+    ["python","blockchain", "c++"],
+    [ "python", "tensorflow", "opencv", "machine learning"],
+    ["react", "image processing", "nlp"],
+    ["react","mongodb", "js", "node"]
+  ]
+}
