@@ -10,6 +10,7 @@ load_dotenv()
 DB_NAME = os.getenv('DB_NAME')
 COLLECTION_NAME = os.getenv('COLLECTION_NAME')
 CONNECTION_STRING = os.getenv('CONNECTION_STRING')
+ORGANIZATION_GITHUB_USERNAME = os.getenv('ORGANIZATION_GITHUB_NAME')
 
 # Database
 # Provide the mongodb atlas url to connect python to mongodb using pymongo
@@ -44,7 +45,7 @@ collection = db[COLLECTION_NAME]
 # Use Github API to fetch all the community projects
 def fetch_projects():
     response = requests.get(
-        "https://api.github.com/orgs/scorelab/repos",
+        "https://api.github.com/orgs/{}/repos".format(COMMUNITY_NAME),
         headers={"Accept": "application/vnd.github.mercy-preview+json"})
     # topics
     # response = response
