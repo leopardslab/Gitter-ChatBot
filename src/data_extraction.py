@@ -7,9 +7,8 @@ f = open('json_data/search-keywords.json')
 data = json.load(f)
 
 # Function to process the message and extract the required information given by the user
-def process_message(message):
+def process_message(message, count):
     # print(message)
-    count = 0
     queries = []
     introduction = data['introduction']
 

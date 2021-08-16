@@ -11,6 +11,18 @@ COMMUNITY_WEBSITE = os.getenv('COMMUNITY_WEBSITE')
 COMMUNITY_GITHUB = os.getenv('COMMUNITY_GITHUB')
 COMMUNITY_MAILING_LIST = os.getenv('COMMUNITY_MAILING_LIST')
 
+#ChatBot help answer
+def help_answer(username):
+    ans = "**{}** Hey @{}, welcome to scorelab. I am a Gitter-ChatBot for this channel.\n".format(
+        CHATBOT_NAME, username)
+    ans += "I am programmed to guide new contributors by finding and listing all the community projects here.\n"    
+    ans += "Suported commands:\n"    
+    ans += "- `{} -help`, quick guide to Gitter-ChatBot. \n".format(CHATBOT_NAME)    
+    ans += "- `{} -p`, list all the projects in given programming languages.\n".format(CHATBOT_NAME)    
+    ans += "I listen to every message in the chat and appear whenever someone needs me :)"    
+    
+    return ans
+
 
 #ChatBot's response when neither skills nor interests are given by the user
 def default_suggestion_answer(username):
