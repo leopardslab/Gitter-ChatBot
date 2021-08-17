@@ -14,7 +14,9 @@ Gitter-ChatBot exists to guide new contributors with the community projects.
 The main.py module - It checks the input for three use-case scenarios. The first one is when the existing members are posting to the channel. A second case is when a new contributor comes and asks for help with the community projects. The problem specification of the user can vary from "How to get started?" to "Is this project active?".
 - Most queries follow a pattern in which the user prefers to introduce themself then follows their skills/Interests and finally asking the community to recommend them some projects.
 
-![image](https://user-images.githubusercontent.com/55585868/129677133-429edd32-a37b-4026-8c0b-29be8ec86bbd.png)
+![Screenshot from 2021-08-17 13-06-09-1](https://user-images.githubusercontent.com/55585868/129686894-a4630c57-3959-4f2d-b81d-0c0795cbb6ac.png)
+![Screenshot from 2021-08-17 13-06-57](https://user-images.githubusercontent.com/55585868/129686897-f3723064-6393-49c1-b905-1a7b4ee8ade3.png)
+![Screenshot from 2021-08-17 13-07-34-1](https://user-images.githubusercontent.com/55585868/129686899-4c4496c8-e9b2-4057-abaa-4b8b3775a167.png)
 
 The data_extraction.py module - Gitter-ChatBot has all the possible queries, introduction messages and an expansive list of software technologies stored in JSON data files. It iterates over the user's chat and searches for every word in the data files to understand the user's conversation. The function Keeps a count for every hit, then uses the count to determine the use-case.
 A new contributor may or may not provide their skills/interests. In this case, the chatbot explicitly asks the user to do that by giving some commands. Take "@chatbot -p javascript" as an example.
