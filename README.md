@@ -14,7 +14,7 @@ Gitter-ChatBot exists to guide new contributors with the community projects.
 The main.py module - It checks the input for three use-case scenarios. The first one is when the existing members are posting to the channel. A second case is when a new contributor comes and asks for help with the community projects. The problem specification of the user can vary from "How to get started?" to "Is this project active?".
 - Most queries follow a pattern in which the user prefers to introduce themself then follows their skills/Interests and finally asking the community to recommend them some projects.
 
-![image](https://user-images.githubusercontent.com/55585868/129452183-6a838e7c-1374-439b-baae-9c2137d5287d.png)
+![image](https://user-images.githubusercontent.com/55585868/129677133-429edd32-a37b-4026-8c0b-29be8ec86bbd.png)
 
 The data_extraction.py module - Gitter-ChatBot has all the possible queries, introduction messages and an expansive list of software technologies stored in JSON data files. It iterates over the user's chat and searches for every word in the data files to understand the user's conversation. The function Keeps a count for every hit, then uses the count to determine the use-case.
 A new contributor may or may not provide their skills/interests. In this case, the chatbot explicitly asks the user to do that by giving some commands. Take "@chatbot -p javascript" as an example.
@@ -25,16 +25,20 @@ A new contributor may or may not provide their skills/interests. In this case, t
 It queries the database to find the projects with the matching skill set, then generates a response to show the list to the user.
 
 # Getting Started
-To set up the Gitter-ChatBot for your community, you need to follow the following steps:
+To set up the Gitter-ChatBot for your community loca, you need to follow the following steps:
 1. Clone the project, create a virtual environment and install the requirements.txt using pip.
 ```
 git clone https://github.com/leopardslab/Gitter-ChatBot.git
+python3 -m venv .venv //create a virtual environemnt
+source .venv/bin/activate //activating the virtual environment
 pip install -r requirements.txt
 ```
-2. In the example.env file, you need to update all the config variables as described below:
-- Token: generated from the GItter-API.
-- DB_NAME: According to your configurations, you need to create a MongoDB Atlas cluster and update all the Database variables, namely DB_NAME, COLLECTION_NAME and CONNECTION_STRING.
-- Rename the `example.env` to `.env` file.
+2. In the example.env file, you need to update all the config variables as described in the file.
+3. Rename the `example.env` to `.env` file.
+4. Start the Gitter-ChatBot.
+```
+python src/main.py
+```
 
 ## Deployment
 Follow these instructions to deploy the project on Heroku Cloud using Heroku CLI:
