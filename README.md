@@ -25,7 +25,7 @@ A new contributor may or may not provide their skills/interests. In this case, t
 It queries the database to find the projects with the matching skill set, then generates a response to show the list to the user.
 
 # Getting Started
-To set up the Gitter-ChatBot for your community loca, you need to follow the following steps:
+To set up the Gitter-ChatBot for your community locally, you need to follow the following steps:
 1. Clone the project, create a virtual environment and install the requirements.txt using pip.
 ```
 git clone https://github.com/leopardslab/Gitter-ChatBot.git
