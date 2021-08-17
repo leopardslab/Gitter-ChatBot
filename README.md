@@ -33,9 +33,11 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
-2. In the example.env file, you need to update all the config variables as described in the file.
-3. Rename the `example.env` to `.env` file.
-4. Start the Gitter-ChatBot.
+2. You need a MongoDB Atlas database to store your community's project.
+3. In the example.env file, you need to update all the config variables as described in the file.
+4. Rename the `example.env` to `.env` file.
+5. Update the database `python src/database.py`.
+6. Start the Gitter-ChatBot.
 ```
 python src/main.py
 ```
