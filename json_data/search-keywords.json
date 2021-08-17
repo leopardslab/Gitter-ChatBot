@@ -6,6 +6,7 @@
     "year",
     "university",
     "new",
+    "new to open source",
     "how can i contribute",
     "opensource",
     "like to contribute",
@@ -31,6 +32,7 @@
     "start",
     "advice",
     "guide",
+    "guidance",
     "college",
     "scorelab",
     "score-lab",
@@ -49,6 +51,7 @@
   "skills": [
     "css",
     "html",
+    "java",
     "javascript",
     "python",
     "react",
@@ -64,9 +67,13 @@
     "web",
     "c++",
     "cpp",
-    "sql",
-    "mysql",
-    "golang"
+    "golang",
+    "js",
+    "node",
+    "git",
+    "aws",
+    "tensorflow",
+    "opencv"
   ],
   "interests": [
     "machine learning",
@@ -76,6 +83,8 @@
     "android development",
     "android",
     "mobile",
-    "computer vision"
+    "computer vision",
+    "image processing",
+    "nlp"
   ]
 }

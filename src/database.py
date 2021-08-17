@@ -1,14 +1,16 @@
 # Import the required libraries
 import os
+import requests
 import pymongo
+import json
 from dotenv import load_dotenv
-print(__name__)
 
 # Take config variables from the .env file of the project
 load_dotenv()
 DB_NAME = os.getenv('DB_NAME')
 COLLECTION_NAME = os.getenv('COLLECTION_NAME')
 CONNECTION_STRING = os.getenv('CONNECTION_STRING')
+ORGANIZATION_GITHUB_USERNAME = os.getenv('ORGANIZATION_GITHUB_NAME')
 
 # Database
 # Provide the mongodb atlas url to connect python to mongodb using pymongo
@@ -38,3 +40,32 @@ collection = db[COLLECTION_NAME]
 #     return project
 # for x in all_projects:
 # print(x)
+
+
+# Use Github API to fetch all the community projects
+def fetch_projects():
+    response = requests.get(
+        "https://api.github.com/orgs/{}/repos".format(ORGANIZATION_GITHUB_USERNAME),
+        headers={"Accept": "application/vnd.github.mercy-preview+json"})
+    # topics
+    # response = response
+    for obj in response.json():
+        p = {
+            "tags":
+            obj["topics"],
+            "name":
+            obj["name"],
+            "github-link":
+            obj["html_url"],
+            "gitter-link":
+            "https://gitter.im/{}".format(obj["full_name"]),
+            "good-first-issues":
+            "https://github.com/{}/labels/good%20first%20issue".format(
+                obj["full_name"]),
+        }
+        collection.insert_one(p)
+    return []
+
+
+if __name__ == "__main__":
+    fetch_projects()
