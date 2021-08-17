@@ -4,30 +4,36 @@ import database
 
 # Load required information about the community
 load_dotenv()
-about_community = os.getenv('ABOUT_COMMUNITY')
-community_website_link = os.getenv('COMMUNITY_WEBSITE')
-community_github_link = os.getenv('COMMUNITY_GITHUB')
+CHATBOT_NAME = os.getenv('CHATBOT_NAME')
+ORGANIZATION_GITHUB_NAME = os.getenv('ORGANIZATION_GITHUB_NAME')
+ABOUT_COMMUNITY = os.getenv('ABOUT_COMMUNITY')
+COMMUNITY_WEBSITE = os.getenv('COMMUNITY_WEBSITE')
+COMMUNITY_GITHUB = os.getenv('COMMUNITY_GITHUB')
+COMMUNITY_MAILING_LIST = os.getenv('COMMUNITY_MAILING_LIST')
+
 
 #ChatBot's response when neither skills nor interests are given by the user
 def default_suggestion_answer(username):
-    ans = "**chatbot** Hey @{}, really nice to have you here.\n".format(
-        username)
-    ans += "I would be more than happy to help you throughout your contribution journey.\n"
-    ans += "Can you tell me more about your skills and interests?\n"
-    ans += "I will suggest you some beginner level issues based on your skills and interest.\n"
-    ans += "You can do this by typing `@chatbot <programming language(s) here without chevrons>`\n"
-    ans += "To learn more about me type `@chatbot -help`.\n"
-    ans += "Keep contributing and ask for help wherever you need."
+    ans = "**{}** Hey @{}, really nice to have you here. ".format(
+        CHATBOT_NAME, username)
+    ans += "I will be more than happy to help you throughout your contribution journey at {}.\n".format(
+        ORGANIZATION_GITHUB_NAME)
+    ans += "Can you tell me more about your skills and interests? "
+    ans += "I will suggest you some projects and beginner level issues based on them.\n"
+    ans += "You can do this by typing `@{} -p <name of your skills/interests>` eg. `@{} -p javascript python`.\n".format(
+        CHATBOT_NAME, CHATBOT_NAME)
+    ans += "To learn more about me type `@{} -help`.\n".format(CHATBOT_NAME)
+    ans += "Keep contributing and ask for help wherever you need :)"
     return ans
 
 
 #ChatBot's response when user provides atleast one of skills or interests
 def project_suggestion_answer(username, queries):
     projects = []
-    ans = "**chatbot** Hey @{}, really nice to have you here.\n".format(
-        username)
+    ans = "**{}** Hey @{}, really nice to have you here. ".format(
+        CHATBOT_NAME, username)
     ans += "I will be more than happy to help you throughout your contribution journey.\n"
-    ans += "I have listed your skills and interests - {}\n".format(queries)
+    ans += "I have listed your skills/interests - {}\n".format(queries)
 
     for _q_ in queries:
         res = database.collection.find({"tags": _q_}, {"_id": 0, "tags": 0})
@@ -36,9 +42,9 @@ def project_suggestion_answer(username, queries):
                 projects.append(project)
 
     if len(projects) == 0:
-        ans += "@" + username + ", currently we don't have any project in these technologies.\n"
-        ans += "You can check other projects [here]({}).".format(
-            community_github_link)
+        ans += username + ", currently we don't have any project in these technologies.\n"
+        ans += "You can checkout other projects of {} [here]({}).".format(
+            ORGANIZATION_GITHUB_NAME, COMMUNITY_GITHUB)
     else:
         ans += "I have found few projects for you :)\n"
     for _p_ in projects:
