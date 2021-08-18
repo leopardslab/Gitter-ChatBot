@@ -44,12 +44,18 @@ collection = db[COLLECTION_NAME]
 
 # Use Github API to fetch all the community projects
 def fetch_projects():
+    print("Fetching list of projects from the Github-API...")
     response = requests.get(
-        "https://api.github.com/orgs/{}/repos".format(COMMUNITY_NAME),
+        "https://api.github.com/orgs/{}/repos?per_page=100&page=1".format(ORGANIZATION_GITHUB_USERNAME),
         headers={"Accept": "application/vnd.github.mercy-preview+json"})
     # topics
     # response = response
-    for obj in response.json():
+    json_response = response.json()
+    total = len(json_response)
+    print("Found {} projects for ".format(total) + ORGANIZATION_GITHUB_USERNAME)
+    print("Uploading projects to the MongoDB database...")
+    progress =0
+    for obj in json_response:
         p = {
             "tags":
             obj["topics"],
@@ -63,7 +69,10 @@ def fetch_projects():
             "https://github.com/{}/labels/good%20first%20issue".format(
                 obj["full_name"]),
         }
+        progress+=1
+        print("Done uploading {}/{}".format(progress, total))
         collection.insert_one(p)
+    print("Process finished")
     return []
 
 
