@@ -24,9 +24,10 @@ class Test_DataExtraction(unittest.TestCase):
         TEST_RESPONSES = data['outcomes']
         for i in range(len(data['messages'])):
             __message__ = data['messages'][i]
-            __res__ = data_extraction.process_message(__message__.lower())
+            __res__ = data_extraction.process_message(__message__.lower(), 0)
             self.assertEqual(__res__, TEST_RESPONSES[i])
 
 
 if __name__ == '__main__':
     unittest.main()
+    

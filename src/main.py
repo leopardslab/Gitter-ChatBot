@@ -24,16 +24,13 @@ def chat_bot():
             message = parsed_message["text"]
 
             if message.startswith('@' + CHATBOT_NAME + " -help"):
-                BOTANSWER = "**{}** will be launched on 16th Aug.".format(CHATBOT_NAME)
-                gitter.messages.send(ROOM, BOTANSWER)
-
-            elif message.startswith('@' + CHATBOT_NAME + " -p"):
-                BOTANSWER = "**{}** will be launched on 16th Aug.".format(
-                    CHATBOT_NAME)
+                BOTANSWER = response.help_answer(message_sender)
                 gitter.messages.send(ROOM, BOTANSWER)
 
             elif not message.startswith('**{}**'.format(CHATBOT_NAME)):
-                __data__ = data_extraction.process_message(message.lower())
+                __data__ = data_extraction.process_message(message.lower(), 0)
+                if message.startswith('@' + CHATBOT_NAME + " -p"):
+                    __data__ = data_extraction.process_message(message.lower(), 3)
 
                 if __data__ == [-1]:
                     pass
