@@ -38,7 +38,8 @@ pip install -r requirements.txt
 2. You need a MongoDB Atlas database to store your community's project.
 3. In the example.env file, you need to update all the config variables as described in the file.
 4. Rename the `example.env` to `.env` file.
-5. Update the database `python src/database.py`.
+5. Update the database `python src/database.py`. 
+**Note** The Github-API only allows 100 repositories per page of the response. In case if you want to add more than 100 projects to the database, update the page parameter in the request url (in the database module `https://api.github.com/orgs/{}/repos?per_page=100&page=1`) to the next page (from 1 to 2 and so on till all the projects get uploaded in the database). Then re-run the step-5 for each page update.
 6. Start the Gitter-ChatBot.
 ```
 python src/main.py
